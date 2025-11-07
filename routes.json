@@ -1,0 +1,121 @@
+{
+	"10":
+	{
+		"Stops": [
+			"Orange avenue", "Depot", "Industrial street", "Yellow avenue", "New Green village",
+			"Lighthouse", "Trolleybus street", "Green village", "Cat mountain", "Yellow avenue",
+			"Industrial street", "Depot", "Orange avenue", "Town park nr. 1039 (rest)"
+		],
+		"Delays": [2, 2, 4, 3, 2, 2, 1, 2, 3, 4, 2, 2, 3, 9]
+	},
+    "4":
+	{
+		"Stops": [
+			"Cat mountain", "New Green village", "Lighthouse", "Trolleybus street", "Green village (rest)"
+		],
+		"Delays": [2, 2, 2, 1,6]
+	},
+	"6":
+	{
+		"Stops": [
+			"Cat mountain", "Town monument", "Antidisestablishmentarianism street", "Derailment street","Skyscraper street","Antidisestablishmentarianism street","Docks",
+			"New Green village","Red forest","Soviet street","Trolleybus street","Green village (rest)"
+		],
+		"Delays": [3,3,2,2,1,3,3,2,1,1,1,9]
+	},
+	"8":
+	{
+		"Stops": [
+			"Green village", "Cat mountain", "Harbour", "Embankment","Anchor street","Airport avenue","Rocky island",
+			"Anchor street","Embankment","Harbour","New Green village","Red forest","Soviet street","Trolleybus street (rest)"
+		],
+		"Delays": [1,2,1,3,4,3,3,3,1,2,1,1,1,6]
+	},
+	"9":
+	{
+		"Stops": [
+			"First Sand road", "Cat mountain", "Second Sand road", "New Green village, building 28","New Green village, building 12","New Green village",
+			"Red forest","Soviet street","Trolleybus street","Green village (rest)"
+		],
+		"Delays": [1,1,1,1,1,2,1,1,1,8]
+	},
+	"11":
+	{
+		"Stops": [
+			"New Green village, building 12", "Yellow avenue", "Tatra forest", "Sniper street","Grey hills","Grey hills",
+			"Sniper street","Tatra forest","Yellow avenue","New Green village (rest)"
+		],
+		"Delays": [4,2,3,2,1,2,2,2,3,2]
+	},
+	"12":
+	{
+		"Stops": [
+			"Spotting street", "Sniper street", "Tatra forest", "Industrial street","Depot","Orange avenue",
+			"Town park nr. 1039","Town park nr. 1039","Industrial street","Tatra forest","Sniper street","Railway station (rest)"
+		],
+		"Delays": [2,1,2,2,2,2,2,1,2,1,2,3]
+	},
+	"14":
+	{
+		"Stops": [
+			"Skyscraper street", "Antidisestablishmentarianism street", "Docks", "Yellow avenue","Tatra Forest","Sniper street",
+			"Grey hills","Grey hills","Sniper street","Tatra forest","Yellow avenue","Town monument", "Antidisestablishmentarianism street", "Derailment street (rest)"
+		],
+		"Delays": [1,3,2,2,3,2,1,2,2,2,2,3,2,7]
+	},
+	"15":
+	{
+		"Stops": [
+			"Skyscraper street", "Prodisestablishmentarianism street","Ferry bridge","Training centre", "Orange district №2", "Orange avenue","Town park nr. 1039","Orange avenue",
+			"Orange district №2","Training centre","Ferry bridge","Prodisestablishmentarianism street","Derailment street (rest)"
+		],
+		"Delays": [3,1,2,1,2,2,2,2,1,2,2,2,10]
+	},
+	"16":
+	{
+		"Stops": [
+			"Skyscraper street", "Bridge road", "Anchor street", "Airport avenue","Salmon street","Rocky island",
+			"Anchor street","Bridge road","Derailment street (rest)"
+		],
+		"Delays": [2,2,4,1,2,6,3,2,9]
+	},
+	"18":
+	{
+		"Stops": [
+			"Grey hills", "Railway station", "Ferry bridge", "Lakeside park","Orange avenue","Town park nr. 1039",
+			"Airport avenue","Rocky island","Town park nr. 1039","Orange avenue","Lakeside park","Ferry bridge","Spotting street","Grey hills (rest)"
+		],
+		"Delays": [2,1,1,2,2,4,2,4,2,2,1,1,2,1]
+	},
+	"22T":
+	{
+		"Stops": [
+			"Tatra Forest", "Derailment street", "Yellow avenue", "Cat bridge","Red forest","Cat bridge",
+			"Yellow avenue","Derailment street","Tatra Forest","Nowhere (rest)"
+		],
+		"Delays": [1,1,1,1,2,1,1,1,2,2]
+	},
+	"24T":
+	{
+		"Stops": [
+			"Derailment street", "Tatra Forest", "Nowhere", "Main island docks nr.2","Lakeside park","South embankment",
+			"Sunset street","Sunset street","Meshpart street","Lakeside park","Main island docks nr.2","Nowhere","Tatra Forest","Derailment street (rest)"
+		],
+		"Delays": [1,1,2,2,1,1,8,1,1,2,2,1,1,2]
+	},
+	"28T":
+	{
+		"Stops": [
+			"Tatra Forest", "Sniper street", "Trolleytruck street", "Grey hills","Trolleytruck street","Sniper street",
+			"Tatra Forest","Nowhere (rest)"
+		],
+		"Delays": [1,1,1,2,2,1,1,1,1]
+	},
+	"Monorail":
+	{
+		"Stops": [
+			"Anchor street","Meat district","Antidisestablishmentarianism street","Derailment street","Antidisestablishmentarianism street","Meat district","Anchor street","Town park nr. 1039"
+		],
+		"Delays": [1,1,1,1,1,1,1,1]
+	}
+}
