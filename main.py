@@ -10,9 +10,9 @@ import os
 import sys
 import platform
 import subprocess
-# pyinstaller --clean --onefile --icon=TrPTimetableGenerator/logo.ico --noconsole TrPTimetableGenerator/TrPTG.py
 
-version = "1.0"
+
+version = "1.1"
 release = "01.07.2025"
 DiscordLink = "https://discord.gg/F8DgYkwEMD"
 
@@ -145,7 +145,7 @@ def GenerateTimetable(data):
 
         draw_dashed_rectangle(draw, [margin, margin, img_width - margin, img_height - margin])
 
-    output_path = f"lasttimetable.png"
+    output_path = f"timetable.png"
     img.save(output_path)
     def open_image(path):
         system = platform.system()
@@ -156,11 +156,21 @@ def GenerateTimetable(data):
         else:  # Linux
             subprocess.run(["xdg-open", path])
 
-    open_image("lasttimetable.png")
+    open_image("timetable.png")
 
 
-with open("routes.json", "r", encoding="utf-8") as f:
-    routes = json.load(f)
+def load_route_files():
+    folder = "RouteConfigurations"
+    files = [f for f in os.listdir(folder) if f.endswith(".json")]
+    return files
+
+def load_routes_from_file(filename):
+    with open(os.path.join("RouteConfigurations", filename), "r", encoding="utf-8") as f:
+        return json.load(f)
+
+route_files = load_route_files()
+routes = {}
+
 
 
 
@@ -175,24 +185,27 @@ def launch_gui():
     except:
         pass
 
-    def has_ico_file():
+    def resource_path(relative_path):
         if getattr(sys, 'frozen', False):
-            # Запущено как .exe
-            current_folder = os.path.dirname(sys.executable)
+            base_path = sys._MEIPASS
         else:
-            # Запущено как .py
-            current_folder = os.path.dirname(os.path.abspath(__file__))
+            base_path = os.path.dirname(os.path.abspath(__file__))
 
-        return os.path.isfile(os.path.join(current_folder, "sdansserver.ico"))
+        return os.path.join(base_path, relative_path)
+
     def SetIcon(rt):
-        if has_ico_file():
-            rt.iconbitmap("sdansserver.ico")
-        else:
-            root.withdraw()
-            show_error("Error\nError code: 1 - invalid hierarchy",
-                       "Check the integrity of the program files. Reinstall the program."
-                       "If this does not help, contact support in the Discord server using the link below.")
-            sys.exit()
+        try:
+            icon_path = resource_path("sdansserver.ico")
+
+            # Проверяем что файл существует
+            if os.path.exists(icon_path):
+                rt.iconbitmap(icon_path)
+            else:
+                print(f"Ошибка: иконка не найдена в {icon_path}")
+        except tk.TclError as e:
+            print(f"Предупреждение: не удалось установить иконку: {e}")
+        except Exception as e:
+            print(f"Ошибка при установке иконки: {e}")
 
 
 
@@ -237,7 +250,7 @@ def launch_gui():
         SetIcon(help_window)
         help_label = tk.Label(help_window, text=(
             f"Author: SDAN1040\nVersion: {version}\nRelease date: {release}\n\n"
-            f"The program uses SDAN1040's Group server routes\nAll information is on the Discord server\nSDAN's Server"
+            f"The program uses default and SDAN1040's Group server routes.\nYou are able to add own routes\nby adding a new JSON file in \"RouteConfigurations\" folder.\nAll information is on the Discord server\nSDAN's Server"
         ), font=("Arial", 10))
         help_label.pack(pady=1)
         link = tk.Label(help_window, text=DiscordLink, fg="blue", cursor="hand2", font=("Arial", 10, "underline"))
@@ -267,8 +280,42 @@ def launch_gui():
             time_entry.delete(0, tk.END)
             time_entry.insert(0, now)
 
+    tk.Label(root, text="Schedule source:").grid(row=1, column=0, sticky="w")
+
+    source_combo = ttk.Combobox(root, values=route_files, state="readonly")
+    source_combo.grid(row=1, column=1)
+    source_combo.set(route_files[0])
+
+    tk.Label(root, text="Route number:").grid(row=2, column=0, sticky="w")
+
+    route_combo = ttk.Combobox(root, state="readonly")
+    route_combo.grid(row=2, column=1)
+
+    route_warning = tk.Label(root, text="", fg="red")
+    route_warning.grid(row=2, column=2, padx=5)
+
+    tk.Label(root, text="Departure time:").grid(row=3, column=0, sticky="w")
+    time_entry = ttk.Entry(root)
+    time_entry.grid(row=3, column=1)
+    real_time_btn = tk.Button(root, text="Real time", bg="tomato", fg="white", command=toggle_real_time)
+    real_time_btn.grid(row=3, column=2, padx=5)
+
+    tk.Label(root, text="Schedule number (1-99):").grid(row=4, column=0, sticky="w")
+    schedule_spin = ttk.Entry(root, textvariable=schedule_number)
+    schedule_spin.grid(row=4, column=1)
+    def randomize_schedule():
+        schedule_number.set(random.randint(1, 99))
+    ttk.Button(root, text="Random", command=randomize_schedule).grid(row=4, column=2)
+
+    tk.Label(root, text="Round amount (1-4):").grid(row=5, column=0, sticky="w")
+    rounds_spin = ttk.Spinbox(root, from_=1, to=4, textvariable=rounds_var, width=5)
+    rounds_spin.grid(row=5, column=1)
+
+    cut_btn = tk.Button(root, text="✂ Cut line (for printing)", bg="tomato", fg="white", command=toggle_cut_line)
+    cut_btn.grid(row=5, column=2, padx=5, pady=5, sticky="nw")
+
     def generate():
-        route = route_entry.get()
+        route = route_combo.get()
         if route not in routes:
             route_warning.config(text="Route not found")
             return
@@ -289,8 +336,10 @@ def launch_gui():
                 departure_str = time_entry.get()
                 departure_time = datetime.strptime(departure_str, "%H:%M")
             except ValueError:
-                messagebox.showerror("Error", "Invalid time format")
-                return
+                departure_str = datetime.now().strftime("%H:%M")
+                departure_time = datetime.strptime(departure_str, "%H:%M")
+                #messagebox.showerror("Error", "Invalid time format")
+                #return
 
         sched = schedule_spin.get()
         if not sched.isdigit() or not (1 <= int(sched) <= 99):
@@ -331,36 +380,25 @@ def launch_gui():
 
         GenerateTimetable(data)
 
-    tk.Label(root, text="Route number:").grid(row=1, column=0, sticky="w")
-    route_entry = ttk.Entry(root)
-    route_entry.grid(row=1, column=1)
-    route_warning = tk.Label(root, text="", fg="red")
-    route_warning.grid(row=1, column=2, padx=5)
-
-    tk.Label(root, text="Departure time:").grid(row=2, column=0, sticky="w")
-    time_entry = ttk.Entry(root)
-    time_entry.grid(row=2, column=1)
-    real_time_btn = tk.Button(root, text="Real time", bg="tomato", fg="white", command=toggle_real_time)
-    real_time_btn.grid(row=2, column=2, padx=5)
-
-    tk.Label(root, text="Schedule number (1-99):").grid(row=3, column=0, sticky="w")
-    schedule_spin = ttk.Entry(root, textvariable=schedule_number)
-    schedule_spin.grid(row=3, column=1)
-    def randomize_schedule():
-        schedule_number.set(random.randint(1, 99))
-    ttk.Button(root, text="Random", command=randomize_schedule).grid(row=3, column=2)
-
-    tk.Label(root, text="Flights amount (1-4):").grid(row=4, column=0, sticky="w")
-    rounds_spin = ttk.Spinbox(root, from_=1, to=4, textvariable=rounds_var, width=5)
-    rounds_spin.grid(row=4, column=1)
-
-    cut_btn = tk.Button(root, text="✂ Cut line (for printing)", bg="tomato", fg="white", command=toggle_cut_line)
-    cut_btn.grid(row=4, column=2, padx=5, pady=5, sticky="nw")
-
     generate_btn = tk.Button(root, text="Generate", command=generate, bg="SteelBlue1", fg="white", font=("Arial", 14))
     generate_btn.grid(row=6, column=0, columnspan=3, pady=10)
 
+
+
+    def on_source_change(event=None):
+        global routes
+        selected_file = source_combo.get()
+        routes = load_routes_from_file(selected_file)
+        route_combo["values"] = list(routes.keys())
+        if routes:
+            route_combo.set(list(routes.keys())[0])
+
+    source_combo.bind("<<ComboboxSelected>>", on_source_change)
+
+    on_source_change()
     update_time_loop()
     root.mainloop()
+
+
 
 launch_gui()

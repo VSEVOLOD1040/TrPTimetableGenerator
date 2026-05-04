@@ -1,0 +1,44 @@
+{
+
+	"6":
+	{
+		"Stops": [
+			"Cat mountain", "Town monument", "Antidisestablishmentarianism street", "Derailment street","Skyscraper street","Antidisestablishmentarianism street","Docks",
+			"New Green village","Red forest","Soviet street","Trolleybus street","Green village (rest)"
+		],
+		"Delays": [3,3,2,2,1,3,3,2,1,1,1,9]
+	},
+	"9":
+	{
+		"Stops": [
+			"First Sand road", "Cat mountain", "Second Sand road", "New Green village, building 28","New Green village, building 12","New Green village",
+			"Red forest","Soviet street","Trolleybus street","Green village (rest)"
+		],
+		"Delays": [1,1,1,1,1,2,1,1,1,8]
+	},
+	"10":
+	{
+		"Stops": [
+			"Orange avenue", "Depot", "Industrial street", "Yellow avenue", "New Green village",
+			"Lighthouse", "Trolleybus street", "Green village", "Cat mountain", "Yellow avenue",
+			"Industrial street", "Depot", "Orange avenue", "Town park nr. 1039 (rest)"
+		],
+		"Delays": [2, 2, 4, 3, 2, 2, 1, 2, 3, 4, 2, 2, 3, 9]
+	},
+	"14":
+	{
+		"Stops": [
+			"Skyscraper street", "Antidisestablishmentarianism street", "Docks", "Yellow avenue","Tatra Forest","Sniper street",
+			"Grey hills","Sniper street","Tatra forest","Yellow avenue","Town monument", "Antidisestablishmentarianism street", "Derailment street (rest)"
+		],
+		"Delays": [1,3,2,2,3,2,3,2,2,2,3,2,7]
+	},
+	"16":
+	{
+		"Stops": [
+			"Skyscraper street", "Bridge road", "Anchor street","Rocky island",
+			"Anchor street","Bridge road","Derailment street (rest)"
+		],
+		"Delays": [2,2,7,6,3,2,9]
+	}
+}

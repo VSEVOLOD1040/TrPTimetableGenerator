@@ -1,13 +1,5 @@
 {
-	"10":
-	{
-		"Stops": [
-			"Orange avenue", "Depot", "Industrial street", "Yellow avenue", "New Green village",
-			"Lighthouse", "Trolleybus street", "Green village", "Cat mountain", "Yellow avenue",
-			"Industrial street", "Depot", "Orange avenue", "Town park nr. 1039 (rest)"
-		],
-		"Delays": [2, 2, 4, 3, 2, 2, 1, 2, 3, 4, 2, 2, 3, 9]
-	},
+
     "4":
 	{
 		"Stops": [
@@ -38,6 +30,15 @@
 			"Red forest","Soviet street","Trolleybus street","Green village (rest)"
 		],
 		"Delays": [1,1,1,1,1,2,1,1,1,8]
+	},
+		"10":
+	{
+		"Stops": [
+			"Orange avenue", "Depot", "Industrial street", "Yellow avenue", "New Green village",
+			"Lighthouse", "Trolleybus street", "Green village", "Cat mountain", "Yellow avenue",
+			"Industrial street", "Depot", "Orange avenue", "Town park nr. 1039 (rest)"
+		],
+		"Delays": [2, 2, 4, 3, 2, 2, 1, 2, 3, 4, 2, 2, 3, 9]
 	},
 	"11":
 	{
